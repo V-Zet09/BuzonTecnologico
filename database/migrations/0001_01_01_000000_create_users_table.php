@@ -6,21 +6,31 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+
+            // 🔐 Auth Laravel
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+
+            // 👤 TU INFORMACIÓN PERSONAL (ANTES EN usuarios)
+            $table->string('apellidos')->nullable();
+            $table->enum('sexo', ['M', 'F', 'O'])->nullable();
+            $table->string('telefono', 10)->nullable();
+            $table->string('matricula', 8)->nullable()->unique();
+
+            // 👑 ROLES
+            $table->string('role')->default('user');
+
             $table->timestamps();
         });
 
+        // 🔐 SISTEMA LARAVEL (NO TOCAR)
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
@@ -37,9 +47,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('users');

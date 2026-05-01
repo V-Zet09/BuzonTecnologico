@@ -30,12 +30,12 @@
                         <label class="mb-2 text-white text-sm block">Correo institucional</label>
                         <input
                             type="email"
-                            name="correo"
-                            value="{{ old('correo') }}"
+                            name="email"
+                            value="{{ old('email') }}"
                             required
                             class="w-full px-3 py-2 rounded-md bg-slate-700 text-white outline-none focus:ring-2 focus:ring-blue-500"
                         >
-                        @error('correo')
+                        @error('email')
                             <p class="text-red-400 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
