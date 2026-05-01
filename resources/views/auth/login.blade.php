@@ -25,15 +25,19 @@
                 <form method="POST" action="{{ route('login') }}" class="space-y-6">
                     @csrf
 
-                    <!-- EMAIL -->
+                   <!-- EMAIL -->
                     <div>
-                        <label class="mb-2 text-white text-sm block">Correo electrónico</label>
+                        <label class="mb-2 text-white text-sm block">Correo institucional</label>
                         <input
                             type="email"
-                            name="email"
+                            name="correo"
+                            value="{{ old('correo') }}"
                             required
                             class="w-full px-3 py-2 rounded-md bg-slate-700 text-white outline-none focus:ring-2 focus:ring-blue-500"
                         >
+                        @error('correo')
+                            <p class="text-red-400 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <!-- PASSWORD -->
@@ -60,16 +64,15 @@
                     </div>
 
                     <!-- BUTTON -->
-                    <button
-                        type="submit"
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md font-semibold transition-colors"
-                    >
-                        Iniciar sesión
-                    </button>
-
+                    <button type="submit" class="block mx-auto text-white bg-gradient-to-r from-blue-500
+    via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none 
+    focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-full text-sm 
+    px-4 py-2.5 text-center leading-5">
+    Inicar Sesion
+                </button>
                     <p class="text-center text-slate-400 text-sm">
                         ¿No tienes una cuenta?
-                        <a href="#" class="text-blue-400 hover:underline">Regístrate</a>
+                        <a href="{{ route('registro') }}" class="text-blue-400 hover:underline">Regístrate</a>
                     </p>
 
                 </form>
