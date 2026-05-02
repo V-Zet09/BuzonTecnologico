@@ -91,9 +91,8 @@
 
 <script>
 let privilegedUsers = [
-  { nombre: 'Admin', correo: 'admin@test.com', rol: 'Administrador', estado: 'Activo', password: '123' }
+  { nombre: 'Admin', email: 'admin@test.com', role: 'admin', estado: 'Activo', password: '123' }
 ];
-
 // RENDER
 function renderUsers() {
   const list = document.getElementById('usersList');
@@ -102,7 +101,7 @@ function renderUsers() {
     <div class="p-4 border-b flex justify-between items-center">
       <div>
         <p class="font-medium">${u.nombre}</p>
-        <p class="text-xs text-gray-400">${u.correo}</p>
+        <p class="text-xs text-gray-400">${u.email}</p>
       </div>
 
       <div class="flex gap-2">
@@ -119,8 +118,8 @@ function createUser(e) {
 
   privilegedUsers.push({
     nombre: newUserName.value,
-    correo: newUserEmail.value,
-    rol: newUserRole.value,
+    email: newUserEmail.value,
+    role: newUserRole.value,
     estado: newUserStatus.value,
     password: newUserPassword.value
   });
@@ -142,8 +141,8 @@ function openEditModal(index) {
 
   editUserIndex.value = index;
   editUserName.value = u.nombre;
-  editUserEmail.value = u.correo;
-  editUserRole.value = u.rol;
+  editUserEmail.value = u.email;
+  editUserRole.value = u.role;
   editUserStatus.value = u.estado;
 
   editUserModal.classList.remove('hidden');
@@ -167,8 +166,8 @@ function saveUserEdit(e) {
   }
 
   privilegedUsers[i].nombre = editUserName.value;
-  privilegedUsers[i].correo = editUserEmail.value;
-  privilegedUsers[i].rol = editUserRole.value;
+  privilegedUsers[i].email = editUserEmail.value;
+  privilegedUsers[i].role = editUserRole.value;
   privilegedUsers[i].estado = editUserStatus.value;
 
   if (editUserPassword.value) {
