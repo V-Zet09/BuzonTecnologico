@@ -8,17 +8,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  Closure(Request): (Response)  $next
-     */
-   public function handle($request, Closure $next)
-{
-    if (!auth()->check() || auth()->user()->rol !== 'Administrador') {
-        abort(403);
-    }
+    public function handle($request, Closure $next): Response
+    {
+        if (!auth()->check() || auth()->user()->role !== 'admin') {
+            abort(403, 'No autorizado');
+        }
 
-    return $next($request);
-}
+        return $next($request);
+    }
 }
