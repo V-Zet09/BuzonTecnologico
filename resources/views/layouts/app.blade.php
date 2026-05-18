@@ -27,28 +27,47 @@
                 <div class="w-10 h-10 bg-white text-blue-900 flex items-center justify-center rounded-full font-bold">
                     IT
                 </div>
+
                 <div>
-                    <h1 class="text-lg font-semibold leading-tight">Buzón Institucional</h1>
-                    <p class="text-xs text-blue-200">TecNM - Ciudad Altamirano</p>
+                    <h1 class="text-lg font-semibold leading-tight">
+                        Buzón Institucional
+                    </h1>
+
+                    <p class="text-xs text-blue-200">
+                        TecNM - Ciudad Altamirano
+                    </p>
                 </div>
             </div>
 
             <!-- Branding derecha -->
             <div class="flex items-center gap-3">
 
-                <div class="w-10 h-10 bg-white/10 border border-white/20 backdrop-blur-md 
+                <div class="w-12 h-12 bg-white/10 border border-white/20 backdrop-blur-md 
                             flex items-center justify-center rounded-xl shadow-sm">
-                    
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8"/>
-                        <path d="M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+
+                        <path d="M4 6l8 7 8-7" />
+                        <rect x="4" y="4" width="16" height="16" rx="2" />
                     </svg>
 
                 </div>
 
                 <div class="leading-tight text-right">
-                    <p class="text-sm font-semibold text-white">Buzón TEC</p>
-                    <p class="text-xs text-blue-200">Sistema institucional</p>
+                    <p class="text-sm font-semibold text-white">
+                        Buzón TEC
+                    </p>
+
+                    <p class="text-xs text-blue-200">
+                        Sistema institucional
+                    </p>
                 </div>
 
             </div>
@@ -57,22 +76,30 @@
     </header>
 
     <!-- CONTENIDO -->
-    <main class="flex-1">
+    <div class="flex flex-1">
 
-        @isset($header)
-            <div class="bg-white shadow-sm border-b">
-                <div class="max-w-7xl mx-auto px-6 py-4">
-                    {{ $header }}
+        {{-- SIDEBAR --}}
+        @include('layouts.sidebar')
+
+        {{-- CONTENIDO PRINCIPAL --}}
+        <main class="flex-1 ml-64">
+
+            @isset($header)
+                <div class="bg-white shadow-sm border-b">
+                    <div class="max-w-7xl mx-auto px-6 py-4">
+                        {{ $header }}
+                    </div>
                 </div>
-            </div>
-        @endisset
+            @endisset
 
-        {{ $slot }}
+            @yield('content')
 
-    </main>
+        </main>
+
+    </div>
 
     <!-- FOOTER -->
-    <footer class="bg-blue-900 text-blue-200 text-center text-xs py-3">
+    <footer class="bg-blue-900 text-blue-200 text-center text-xs py-3 ml-64">
         © {{ date('Y') }} Instituto Tecnológico · Sistema de Buzón
     </footer>
 

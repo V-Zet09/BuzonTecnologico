@@ -64,6 +64,6 @@ class RegistroController extends Controller
         $request->session()->regenerate();
 
         // REDIRECCIÓN SEGURA
-        return redirect()->route('dashboard');
+        return redirect()->route('alumno.dashboard');
     }
 }
