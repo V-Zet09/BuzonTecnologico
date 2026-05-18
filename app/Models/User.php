@@ -2,52 +2,43 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-   protected $fillable = [
-    'name',
-    'email',
-    'password',
-    'apellidos',
-    'sexo',
-    'telefono',
-    'matricula',
-    'role',
-];
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'role',
+        'activo',
+        'notif_nueva_queja',
+        'notif_atendida',
+        'notif_anulada',
+        'notif_reporte_semanal',
+    ];
+
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at'     => 'datetime',
+        'password'              => 'hashed',
+        'activo'                => 'boolean',
+        'notif_nueva_queja'     => 'boolean',
+        'notif_atendida'        => 'boolean',
+        'notif_anulada'         => 'boolean',
+        'notif_reporte_semanal' => 'boolean',
+    ];
+
+    public function quejasSugerencias()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->hasMany(QuejaSugerencia::class);
     }
 }

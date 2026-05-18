@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\QuejaSugerencia;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,9 +12,46 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
+    public function index()
+    {
+        $user = Auth::user();
+
+        $totalRegistros = QuejaSugerencia::where('user_id', $user->id)->count();
+        $pendientes = QuejaSugerencia::where('user_id', $user->id)
+            ->where('estado', 'pendiente')
+            ->where('anulado', false)
+            ->count();
+
+        $atendidas = QuejaSugerencia::where('user_id', $user->id)
+            ->where('estado', 'atendida')
+            ->where('anulado', false)
+            ->count();
+
+        $sugerencias = QuejaSugerencia::where('user_id', $user->id)
+            ->where('tipo', 'sugerencia')
+            ->where('anulado', false)
+            ->count();
+
+        $anuladas = QuejaSugerencia::where('user_id', $user->id)
+            ->where('anulado', true)
+            ->count();
+
+        $ultimosRegistros = QuejaSugerencia::where('user_id', $user->id)
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('profile', compact(
+            'user',
+            'totalRegistros',
+            'pendientes',
+            'atendidas',
+            'sugerencias',
+            'anuladas',
+            'ultimosRegistros'
+        ));
+    }
+
     public function edit(Request $request): View
     {
         return view('profile.edit', [
@@ -21,9 +59,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
@@ -37,9 +72,6 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
-    /**
-     * Delete the user's account.
-     */
     public function destroy(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [
